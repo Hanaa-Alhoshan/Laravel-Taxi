@@ -20,16 +20,16 @@ class ManagerController extends Controller
   public function index(){
     $myArray=[];
     $users=User::where('isDriver', '=', 1)->get();
-  
+
     foreach ($users as $users) {
     $driver=Driver::where('id',$users->id)->first();
     $users->driver_id=$driver->driver_id;
        $r=array_push($myArray,$users);
   }
 
-   return response()->json(['data' => $myArray,200]);     
+   return response()->json(['data' => $myArray,200]);
   }
-  
+
   public function create(Request $request){
      $this->authorize('drivers_create');
      $user= Auth::user();
@@ -52,7 +52,7 @@ class ManagerController extends Controller
       'email'=> $request->email,
      'password'=>(Hash::make($request->password)),
       'phone_number'=>$request->phone_number,
-      
+
     ]);
     $user->isDriver=1;
     $user->save();
@@ -61,15 +61,15 @@ class ManagerController extends Controller
       'birth_date'=>$request->birth_date,
      'driving_license_num'=>$request->driving_license_num,
      'exp_date'=>$request->exp_date
-      
+
      ]);
      $user->birth_date=$driver->birth_date;
      $user->driving_license_num=$driver->driving_license_num;
      $user->exp_date=$driver->exp_date;
-    
+
      $k=json_encode(['data1'=>json_decode( $user)]);
      return $k;
-    
+
   }
 
   public function show(Request $request){
@@ -82,16 +82,16 @@ class ManagerController extends Controller
     $user->exp_date=$driver->exp_date;
     $user->driver_id=$driver->driver_id;
     $k=json_encode(['data1'=>json_decode( $user)]);
-      return $k; 
+      return $k;
                 }
 
   public function update(Request $request ){
     $this->authorize('drivers_edit');
    $user= Auth::user();
     $driver=Driver::where('driver_id', $request->driver_id)->first();
-  
+
     $driver->update($request->all());
-  
+
       $user=User::find($request->id);
      $user->update( $request->all() );
      $driver->save();
@@ -101,7 +101,7 @@ class ManagerController extends Controller
      $user->exp_date=$driver->exp_date;
      $k=json_encode(['data1'=>json_decode( $user)]);
      return $k;
-    
+
   }
   public function destroy(Request $request){
     $this->authorize('drivers_delete');
@@ -112,3 +112,4 @@ class ManagerController extends Controller
     return "DELETED SUCESSFULY";
   }
 }
+

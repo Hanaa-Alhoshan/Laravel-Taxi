@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Redis;
 
 class RentalController extends Controller
 {
+    //show all car
     public function index(Request $request)
     {
         $price_from = $request->query('price_from');
@@ -46,7 +47,7 @@ class RentalController extends Controller
             'technical_condition'  => 'required',
             'price'=> 'required',
             'img_url'    =>'required',
-              
+
         ]);
         if($validator->fails()){
             return $validator->errors();
@@ -57,8 +58,8 @@ class RentalController extends Controller
         $file_name=time().'.'.$file_extension;
         $path='images/cars';
         $request->img_url->move($path,$file_name);
-      
-       
+
+
         $rental_car = Rental_Car::create([
             'car_type'      => $request->car_type,
             'model_name'      => $request->model_name,
