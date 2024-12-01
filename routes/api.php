@@ -35,7 +35,7 @@ Route::middleware('auth:sanctum','verified')->get('/user',function(Request $requ
 
 Route::post('/register',[SigninController::class , 'register']);
 Route::post('/login',[SigninController::class , 'login']);
- 
+
 Route::middleware('auth:sanctum')->group( function () {
       Route::post('/logout',[SigninController::class , 'logout']);
       Route::controller(RequestController::class)->group(function () {
@@ -59,7 +59,7 @@ Route::middleware('auth:sanctum')->group( function () {
         Route::get('/show-cars', 'index');
         Route::get('show-details/{id}','show');
 
-    
+
 
     });
     Route::controller(DriverController::class)->group(function () {
@@ -81,7 +81,7 @@ Route::middleware('auth:sanctum')->group( function () {
       Route::post('elctronic',[PayController::class,'pay']);
 
 });
- 
+
 
 
 
